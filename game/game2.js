@@ -40,7 +40,7 @@ window.onload = function() {
 			.rightControls(1);
 		
 		//chickens
-		for (i=0;i<2;i++){  
+		for (i=0;i<3;i++){  
 		Crafty.e("2D, DOM, chicken, Animal, Solid")
 			.attr({x: 100, y: 200})
 		}
@@ -63,10 +63,18 @@ window.onload = function() {
 			this.requires("SpriteAnimation, Collision")
 
 				.bind("EnterFrame", function() { 
-
-					//this is crude. they get stuck it needs to tell them to go the opposite way they were going, case by case.
-					if(this.x > 900 || this.x < 40 || this.y > 360 || this.y < 40) {
-						direction = directions[Crafty.math.randomInt(0, 3)];
+					// keepiong them within the frame
+					if(this.x < 30) {
+						direction = directions[1];
+					}
+					if(this.x > 910) {
+						direction = directions[3];
+					}
+					if(this.y < 30) {
+						direction = directions[2];
+					}
+					if(this.y > 370) {
+						direction = directions[0];
 					}
 					direction = pickNewDirection();
 					this.animate(direction.name, 3, direction.spriteRow, 5);
