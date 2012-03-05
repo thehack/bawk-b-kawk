@@ -1,4 +1,4 @@
-window.onload = function() {
+fwindow.onload = function() {
 	//start crafty
 	Crafty.init(940, 400);
 	
@@ -40,11 +40,8 @@ window.onload = function() {
 			.rightControls(1);
 		
 		//chickens
-<<<<<<< HEAD
 		for (i=0;i<2;i++){  
-=======
-		for (i=0;i<3;i++){  
->>>>>>> master
+
 		Crafty.e("2D, DOM, chicken, Animal, Solid")
 			.attr({x: 100, y: 200})
 		}
