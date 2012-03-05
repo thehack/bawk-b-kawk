@@ -1,4 +1,4 @@
-fwindow.onload = function() {
+window.onload = function() {
 	//start crafty
 	Crafty.init(940, 400);
 	
