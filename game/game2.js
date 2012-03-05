@@ -64,12 +64,6 @@ fwindow.onload = function() {
 			this.requires("SpriteAnimation, Collision")
 
 				.bind("EnterFrame", function() { 
-<<<<<<< HEAD
-
-					//this is crude. they get stuck it needs to tell them to go the opposite way they were going, case by case.
-					if(this.x > 900 || this.x < 40 || this.y > 360 || this.y < 40) {
-						direction = directions[Crafty.math.randomInt(0, 3)];
-=======
 					// keepiong them within the frame
 					if(this.x < 30) {
 						direction = directions[1];
@@ -82,7 +76,6 @@ fwindow.onload = function() {
 					}
 					if(this.y > 370) {
 						direction = directions[0];
->>>>>>> master
 					}
 					direction = pickNewDirection();
 					this.animate(direction.name, 3, direction.spriteRow, 5);
