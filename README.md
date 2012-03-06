@@ -25,9 +25,4 @@ I see this a cute little which game you could finish in about 10 minutes, maybe 
 3. Design loading screen, background.
 4. Chickens lay eggs, player collects eggs, sells eggs, gets points and coins.
 
-
-<<<<<<< HEAD
-
-=======
 <a href="http://thehack.github.com/bawk-b-kawk/game/craftyGame.html">LIVE DEMO HERE</a>
->>>>>>> master
