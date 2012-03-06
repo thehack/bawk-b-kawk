@@ -1,7 +1,7 @@
 window.onload = function() { 
     //start crafty
     Crafty.init(940, 400);
-    // Crafty.canvas.init();
+    Crafty.canvas.init();
     //for the player 
     Crafty.sprite(44, "walk.png", {
         player: [0,0]
@@ -10,7 +10,12 @@ window.onload = function() {
     Crafty.sprite(32, "animals.png", {
         chicken: [4,4]
     });
-
+    Crafty.sprite(20, "dirt.png", {
+        dirt1: [0,0],
+        dirt2: [1,0],
+        dirt3: [2,0],
+        dirt4: [3,0]
+    });
     //the loading screen that will display while our assets load
     Crafty.scene("loading", function() {
 
@@ -31,6 +36,19 @@ window.onload = function() {
     Crafty.scene("loading");
 
     Crafty.scene("main", function() {
+        // create dirt.
+        var generateWorld = function() {
+        //generate the grass along the x-axis
+            for(var i = 0; i < 47; i++) {
+                //generate the grass along the y-axis
+                for(var j = 0; j < 20; j++) {
+                    dirtType = Crafty.math.randomInt(1, 4);
+                    Crafty.e("2D, Canvas, dirt"+dirtType)
+                        .attr({x: i * 20, y: j * 20});
+                }
+            }
+        }
+        generateWorld();
 
         //create our player entity with some premade components
         Crafty.e("2D, Canvas, player, RightControls, Hero, Collision, Solid")
@@ -38,10 +56,10 @@ window.onload = function() {
             .rightControls(1);
         
         //chickens
-        for (i=0;i<3;i++){  
+        for (i=0;i<8;i++){  
 
         Crafty.e("2D, Canvas, chicken, Animal, Solid")
-            .attr({x: i*100, y: i*50})
+            .attr({x: i*0, y: i*10})
         }
     });
 
@@ -65,7 +83,7 @@ window.onload = function() {
                 .animate("chickenDown",3,4,5)
                 .animate("chickenLeft",3,5,5)
                 .bind("EnterFrame", function() { 
-                    // keepiong them within the frame
+                    // keeping them within the frame
                     if(this.x < this.w) {
                         direction = directions[1];
                     }
