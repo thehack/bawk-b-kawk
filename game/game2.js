@@ -69,13 +69,13 @@ window.onload = function() {
                     if(this.x < this.w) {
                         direction = directions[1];
                     }
-                    if(this.x > Crafty.viewport.height) {
+                    if(this.x > Crafty.viewport.width) {
                         direction = directions[3];
                     }
                     if(this.y < this.h) {
                         direction = directions[2];
                     }
-                    if(this.y > Crafty.viewport.width) {
+                    if(this.y > Crafty.viewport.height) {
                         direction = directions[0];
                     }
                     
