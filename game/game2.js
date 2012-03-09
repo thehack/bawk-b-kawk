@@ -14,7 +14,13 @@ window.onload = function() {
         dirt1: [0,0],
         dirt2: [1,0],
         dirt3: [2,0],
-        dirt4: [3,0]
+        dirt4: [3,0],
+        vFence: [4,0],
+        hFence: [5,0],
+        tLFence: [6,0],
+        bRFence: [7,0],
+        bLFence: [8,0],
+        tRFence: [9,0]
     });
     //the loading screen that will display while our assets load
     Crafty.scene("loading", function() {
@@ -38,13 +44,40 @@ window.onload = function() {
     Crafty.scene("main", function() {
         // create dirt.
         var generateWorld = function() {
-        //generate the grass along the x-axis
+        //generate along the x-axis
             for(var i = 0; i < 47; i++) {
-                //generate the grass along the y-axis
+                //generate along the y-axis
                 for(var j = 0; j < 20; j++) {
+                    if(i==0 && j==0){
+                        Crafty.e("2D, Canvas, tLFence")
+                            .attr({x: i * 20, y: j * 20});
+                    }
+                    else if(i==46 && j==0){
+                        Crafty.e("2D, Canvas, tRFence")
+                            .attr({x: i * 20, y: j * 20});
+                    }                    
+                    else if(i==0 && j==19){
+                        Crafty.e("2D, Canvas, bLFence")
+                            .attr({x: i * 20, y: j * 20});
+                    }
+                    else if(i==46 && j==19){
+                        Crafty.e("2D, Canvas, bRFence")
+                            .attr({x: i * 20, y: j * 20});
+                    }
+                    else if((i === 0 || i === 46) && ( j > 0 && j < 19 )){
+                        Crafty.e("2D, Canvas, vFence, Solid")
+                            .attr({x: i * 20, y: j * 20});
+                    }
+                    else if ((j===0 || j===19) && (i > 0 && i < 46)) {
+                        Crafty.e("2D, Canvas, hFence, Solid")
+                            .attr({x: i * 20, y: j * 20});
+                    }
+
+                    else {
                     dirtType = Crafty.math.randomInt(1, 4);
                     Crafty.e("2D, Canvas, dirt"+dirtType)
                         .attr({x: i * 20, y: j * 20});
+                    }
                 }
             }
         }
