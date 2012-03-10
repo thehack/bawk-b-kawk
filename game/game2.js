@@ -8,7 +8,8 @@ window.onload = function() {
         });
     //for the chickens
     Crafty.sprite(32, "animals.png", {
-        chicken: [4,4]
+        chicken: [4,4],
+        egg: [0,8]
     });
     Crafty.sprite(20, "dirt.png", {
         dirt1: [0,0],
@@ -132,13 +133,13 @@ window.onload = function() {
                     
 
             // the first frame is speed, the second is second frame is how long to animate for.
-                    if(!this.isPlaying()){
-                        direction = pickNewDirection();
+                    direction = pickNewDirection();
                     this.animate(direction.name, 30);
                     this.x += direction.x;
                     this.y += direction.y;
-                    }
-                    
+
+                    //pass on the chicken coordinates to the egg
+                    layAnEgg(this.x, this.y);
             });
 
             this.onHit('Hero', function() {console.log('You hit a chicken!') });
@@ -151,9 +152,21 @@ window.onload = function() {
                 }
                 return direction;
             };
+
         }
     });
-
+    Crafty.c('Egg', {
+        init: function() {
+            this.requires("Collision");
+        }
+    })
+                var layAnEgg = function(xPos, yPos) {
+                if(Crafty.math.randomInt(0, 3600) === 1) {
+                  Crafty.e("2D, egg, Canvas, Egg, Collision")
+                    .attr({x: xPos, y: yPos});
+                    console.log('laid an egg! ' );
+                }
+            };
     //create Hero Component
     Crafty.c('Hero', {
         init: function() {
