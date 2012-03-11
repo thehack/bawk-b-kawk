@@ -50,7 +50,7 @@ window.onload = function() {
     Crafty.scene("loading", function() {
 
         //load takes an array of assets and a callback when complete
-        Crafty.load(["walk.png", "animals.png", "dirt.png", "awk.ogg", "bawk.ogg", "blok.ogg", "klawaawk.ogg", "woop.ogg"], function() {
+        Crafty.load(["walk.png", "animals.png", "dirt.png"], function() {
             Crafty.scene("main"); //when everything is loaded, run the main scene
         });
 
