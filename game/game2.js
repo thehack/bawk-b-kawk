@@ -36,6 +36,15 @@ window.onload = function() {
         console.log("egg count: " + eggCount);
     };
 
+    var layAnEgg = function(xPos, yPos) {
+        if(Crafty.math.randomInt(0, 3600) === 1) {
+          var egg = Crafty.e("2D, egg, Canvas, Egg, Collision")
+            .attr({x: xPos, y: yPos})
+            .onHit('Hero', function() {pickUpEgg(egg) });
+            Crafty.audio.play(["blok", "awk", "bawk", "klawaawk"][Crafty.math.randomInt(0, 3)]);
+            console.log('laid an egg! ' );
+        }
+    };
 
     //the loading screen that will display while our assets load
     Crafty.scene("loading", function() {
@@ -107,7 +116,7 @@ window.onload = function() {
         for (i=0;i<8;i++){  
 
         Crafty.e("2D, Canvas, chicken, Animal, Solid")
-            .attr({x: i*0, y: i*10})
+            .attr({x: Crafty.math.randomInt(40, 900),  y: Crafty.math.randomInt(40, 360)})
         }
     });
 
@@ -176,15 +185,7 @@ window.onload = function() {
 
         
     })
-                var layAnEgg = function(xPos, yPos) {
-                if(Crafty.math.randomInt(0, 3600) === 1) {
-                  var egg = Crafty.e("2D, egg, Canvas, Egg, Collision")
-                    .attr({x: xPos, y: yPos})
-                    .onHit('Hero', function() {pickUpEgg(egg) });
-                    Crafty.audio.play(["blok", "awk", "bawk", "klawaawk"][Crafty.math.randomInt(0, 3)]);
-                    console.log('laid an egg! ' );
-                }
-            };
+
     //create Hero Component
     Crafty.c('Hero', {
         init: function() {
