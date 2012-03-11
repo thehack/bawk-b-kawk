@@ -109,13 +109,12 @@ window.onload = function() {
 
         //create our player entity with some premade components
         Crafty.e("2D, Canvas, player, RightControls, Hero, Collision, Solid")
-            .attr({x: Crafty.viewport.width/3, y: Crafty.viewport.height/3})
+            .attr({x: Crafty.viewport.width/3, y: Crafty.viewport.height/3, z: 2})
             .rightControls(1);
         
         //chickens
         for (i=0;i<8;i++){  
-
-        Crafty.e("2D, Canvas, chicken, Animal, Solid")
+            Crafty.e("2D, Canvas, chicken, Animal")
             .attr({x: Crafty.math.randomInt(40, 900),  y: Crafty.math.randomInt(40, 360)})
         }
     });
