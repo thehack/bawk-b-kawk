@@ -23,11 +23,25 @@ window.onload = function() {
         bLFence: [8,0],
         tRFence: [9,0]
     });
+    var sounds = ["awk", "bawk", "blok", "klawaawk", "woop"]
+    for (var i = 0; i < sounds.length; i++) {
+        Crafty.audio.add(sounds[i], sounds[i] + ".ogg");
+    };
+    var eggCount = 0;
+
+    var pickUpEgg = function(egg) {
+        egg.destroy();
+        Crafty.audio.play("woop");
+        eggCount += 1;
+        console.log("egg count: " + eggCount);
+    };
+
+
     //the loading screen that will display while our assets load
     Crafty.scene("loading", function() {
 
         //load takes an array of assets and a callback when complete
-        Crafty.load(["walk.png", "animals.png"], function() {
+        Crafty.load(["walk.png", "animals.png", "dirt.png", "awk.ogg", "bawk.ogg", "blok.ogg", "klawaawk.ogg", "woop.ogg"], function() {
             Crafty.scene("main"); //when everything is loaded, run the main scene
         });
 
@@ -159,11 +173,15 @@ window.onload = function() {
         init: function() {
             this.requires("Collision");
         }
+
+        
     })
                 var layAnEgg = function(xPos, yPos) {
                 if(Crafty.math.randomInt(0, 3600) === 1) {
-                  Crafty.e("2D, egg, Canvas, Egg, Collision")
-                    .attr({x: xPos, y: yPos});
+                  var egg = Crafty.e("2D, egg, Canvas, Egg, Collision")
+                    .attr({x: xPos, y: yPos})
+                    .onHit('Hero', function() {pickUpEgg(egg) });
+                    Crafty.audio.play(["blok", "awk", "bawk", "klawaawk"][Crafty.math.randomInt(0, 3)]);
                     console.log('laid an egg! ' );
                 }
             };
