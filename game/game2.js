@@ -34,6 +34,14 @@ window.onload = function() {
         Crafty.audio.play("woop");
         eggCount += 1;
         console.log("egg count: " + eggCount);
+        scoreBoard(eggCount);
+    };
+
+    var scoreBoard = function() {
+        score = Crafty.e("2D, DOM, Text")
+            .attr({w: 100, h: 20, x: 840, y: 20})
+            .text(function() {return "Eggs: " + eggCount;})
+            .css({"color": "#ffffff"});
     };
 
     var layAnEgg = function(xPos, yPos) {
@@ -51,15 +59,13 @@ window.onload = function() {
 
         //load takes an array of assets and a callback when complete
         Crafty.load(["walk.png", "animals.png", "dirt.png"], function() {
-            Crafty.scene("main"); //when everything is loaded, run the main scene
+            Crafty.scene("main"); 
         });
 
         //black background with some loading text
         Crafty.background("#000");
-        Crafty.e("2D, DOM, Text")
-            .attr({w: 100, h: 20, x: 400, y: 190})
-            .text("Loading")
-            .css({"text-align": "center"});
+
+    //automatically play the loading scene
     });
 
     //automatically play the loading scene
@@ -69,14 +75,14 @@ window.onload = function() {
         // create dirt.
         var generateWorld = function() {
         //generate along the x-axis
-            for(var i = 0; i < 47; i++) {
+            for(var i = 0; i < 40; i++) {
                 //generate along the y-axis
                 for(var j = 0; j < 20; j++) {
                     if(i==0 && j==0){
                         Crafty.e("2D, Canvas, tLFence")
                             .attr({x: i * 20, y: j * 20});
                     }
-                    else if(i==46 && j==0){
+                    else if(i==39 && j==0){
                         Crafty.e("2D, Canvas, tRFence")
                             .attr({x: i * 20, y: j * 20});
                     }                    
@@ -84,11 +90,11 @@ window.onload = function() {
                         Crafty.e("2D, Canvas, bLFence")
                             .attr({x: i * 20, y: j * 20});
                     }
-                    else if(i==46 && j==19){
+                    else if(i==39 && j==19){
                         Crafty.e("2D, Canvas, bRFence")
                             .attr({x: i * 20, y: j * 20});
                     }
-                    else if((i === 0 || i === 46) && ( j > 0 && j < 19 )){
+                    else if((i === 0 || i === 39) && ( j > 0 && j < 19 )){
                         Crafty.e("2D, Canvas, vFence, Solid")
                             .attr({x: i * 20, y: j * 20});
                     }
@@ -115,14 +121,18 @@ window.onload = function() {
         //chickens
         for (i=0;i<8;i++){  
             Crafty.e("2D, Canvas, chicken, Animal")
-            .attr({x: Crafty.math.randomInt(40, 900),  y: Crafty.math.randomInt(40, 360)})
+            .attr({x: Crafty.math.randomInt(40, 760),  y: Crafty.math.randomInt(40, 360)})
         }
+
     });
+
+
 
     //All the directional controls for our chickens
     Crafty.c("Animal", {
 
         init: function () {
+            scoreBoard();
             var directions = [  {name:  'chickenUp',    x: 0, y: -1, spriteRow: 7}, 
                                 {name:  'chickenRight', x: 1, y: 0, spriteRow: 6}, 
                                 {name:  'chickenDown',  x: 0, y: 1, spriteRow: 4}, 
@@ -143,13 +153,13 @@ window.onload = function() {
                     if(this.x < this.w) {
                         direction = directions[1];
                     }
-                    if(this.x > Crafty.viewport.width) {
+                    if(this.x > 760) {
                         direction = directions[3];
                     }
                     if(this.y < this.h) {
                         direction = directions[2];
                     }
-                    if(this.y > Crafty.viewport.height) {
+                    if(this.y > 360) {
                         direction = directions[0];
                     }
                     
