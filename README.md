@@ -17,12 +17,18 @@ I see this a cute little which game you could finish in about 10 minutes, maybe 
 
 1. The player entity walks and responds to arrow keys.
 2. The chicken entities walk and randomly change direction.
+3. Dirt background
+4. Fence keeps player and chickens in.
+5. Chicken's lay eggs.
+6. Player collects eggs.
+7. Scoreboard counts eggs.
 
 **Next Up:**
 
 1. Re-Design player
-2. Fix the issue where the chickens get stuck
-3. Design loading screen, background.
-4. Chickens lay eggs, player collects eggs, sells eggs, gets points and coins.
+2. Design loading screen, background.
+3. Fix scoreboard
+4. Store for selling eggs, buying upgrades.
+5. Ferrets rats and weasels!
 
 <a href="http://thehack.github.com/bawk-b-kawk/game/craftyGame.html">LIVE DEMO HERE</a>
