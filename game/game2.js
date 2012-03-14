@@ -23,26 +23,16 @@ window.onload = function() {
         bLFence: [8,0],
         tRFence: [9,0]
     });
+    var score;
     var sounds = ["awk", "bawk", "blok", "klawaawk", "woop"]
     for (var i = 0; i < sounds.length; i++) {
         Crafty.audio.add(sounds[i], sounds[i] + ".ogg");
     };
+
     var eggCount = 0;
+        var score = Crafty.e("2D,DOM,Text").attr({w: 100, h: 20, x: 840, y: 20}).css({"color": "#ffffff"}).text("Eggs: 0"); 
 
-    var pickUpEgg = function(egg) {
-        egg.destroy();
-        Crafty.audio.play("woop");
-        eggCount += 1;
-        console.log("egg count: " + eggCount);
-        scoreBoard(eggCount);
-    };
 
-    var scoreBoard = function() {
-        score = Crafty.e("2D, DOM, Text")
-            .attr({w: 100, h: 20, x: 840, y: 20})
-            .text(function() {return "Eggs: " + eggCount;})
-            .css({"color": "#ffffff"});
-    };
 
     var layAnEgg = function(xPos, yPos) {
         if(Crafty.math.randomInt(0, 3600) === 1) {
@@ -53,7 +43,12 @@ window.onload = function() {
             console.log('laid an egg! ' );
         }
     };
-
+    var pickUpEgg = function(egg) {
+        egg.destroy();
+        Crafty.audio.play("woop");
+        eggCount += 1;
+        score.text("Eggs: "+eggCount);
+    };
     //the loading screen that will display while our assets load
     Crafty.scene("loading", function() {
 
@@ -70,9 +65,10 @@ window.onload = function() {
 
     //automatically play the loading scene
     Crafty.scene("loading");
-
     Crafty.scene("main", function() {
         // create dirt.
+        score = Crafty.e("2D,DOM,Text").attr({w: 100, h: 20, x: 840, y: 20}).css({"color": "#ffffff"}).text("Eggs: 0"); 
+
         var generateWorld = function() {
         //generate along the x-axis
             for(var i = 0; i < 40; i++) {
@@ -111,8 +107,8 @@ window.onload = function() {
                 }
             }
         }
-        generateWorld();
 
+        generateWorld();
         //create our player entity with some premade components
         Crafty.e("2D, Canvas, player, RightControls, Hero, Collision, Solid")
             .attr({x: Crafty.viewport.width/3, y: Crafty.viewport.height/3, z: 2})
@@ -126,13 +122,10 @@ window.onload = function() {
 
     });
 
-
-
     //All the directional controls for our chickens
     Crafty.c("Animal", {
 
         init: function () {
-            scoreBoard();
             var directions = [  {name:  'chickenUp',    x: 0, y: -1, spriteRow: 7}, 
                                 {name:  'chickenRight', x: 1, y: 0, spriteRow: 6}, 
                                 {name:  'chickenDown',  x: 0, y: 1, spriteRow: 4}, 
@@ -198,6 +191,7 @@ window.onload = function() {
     //create Hero Component
     Crafty.c('Hero', {
         init: function() {
+
                 //setup animations
                 this.requires("SpriteAnimation, Collision")
                     .animate("walk_left", 5, 0, 9)
