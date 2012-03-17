@@ -48,6 +48,9 @@ window.onload = function() {
         Crafty.audio.play("woop");
         eggCount += 1;
         score.text("Eggs: "+eggCount);
+        if(eggCount === 6) {
+            Crafty.scene("shop");
+        }
     };
     //the loading screen that will display while our assets load
     Crafty.scene("loading", function() {
@@ -121,7 +124,15 @@ window.onload = function() {
         }
 
     });
-
+    Crafty.scene("shop", function() {
+        Crafty.e("2D,DOM,Text").attr({w: 940, h: 20, x: 0, y: 20}).css({"color": "#ffffff", "text-align": "center"}).text("You've Collected six eggs and sold them for 2.00<br>Press SPACE to Continue.")
+        .bind("KeyDown", function(e) {
+                if(e.keyCode === Crafty.keys.SPACE) {
+                   eggCount = 0;
+                   Crafty.scene("main");
+                }
+        });
+    });
     //All the directional controls for our chickens
     Crafty.c("Animal", {
 
