@@ -23,17 +23,15 @@ window.onload = function() {
         bLFence: [8,0],
         tRFence: [9,0]
     });
-    var score;
     var sounds = ["awk", "bawk", "blok", "klawaawk", "woop"]
     for (var i = 0; i < sounds.length; i++) {
         Crafty.audio.add(sounds[i], sounds[i] + ".ogg");
     };
-
+    var hh, mm, ss = 0;
     var eggCount = 0;
-        var score = Crafty.e("2D,DOM,Text").attr({w: 100, h: 20, x: 840, y: 20}).css({"color": "#ffffff"}).text("Eggs: 0"); 
-
-
-
+    var basket;
+    var coins = 0;
+    var coinCount = Crafty.e("2D,DOM,Text").attr({w: 100, h: 20, x: 840, y: 40}).css({"color": "#ffffff"}).text("Coins: " + coins);
     var layAnEgg = function(xPos, yPos) {
         if(Crafty.math.randomInt(0, 3600) === 1) {
           var egg = Crafty.e("2D, egg, Canvas, Egg, Collision")
@@ -47,7 +45,7 @@ window.onload = function() {
         egg.destroy();
         Crafty.audio.play("woop");
         eggCount += 1;
-        score.text("Eggs: "+eggCount);
+        basket.text("Eggs: "+eggCount);
         if(eggCount === 6) {
             Crafty.scene("shop");
         }
@@ -70,8 +68,8 @@ window.onload = function() {
     Crafty.scene("loading");
     Crafty.scene("main", function() {
         // create dirt.
-        score = Crafty.e("2D,DOM,Text").attr({w: 100, h: 20, x: 840, y: 20}).css({"color": "#ffffff"}).text("Eggs: 0"); 
-
+        basket = Crafty.e("2D,DOM,Text").attr({w: 100, h: 20, x: 840, y: 20}).css({"color": "#ffffff"}).text("Eggs: 0"); 
+        bank = Crafty.e("2D,DOM,Text").attr({w: 100, h: 20, x: 840, y: 40}).css({"color": "#ffffff"}).text("Coins: " + coins); 
         var generateWorld = function() {
         //generate along the x-axis
             for(var i = 0; i < 40; i++) {
@@ -125,12 +123,13 @@ window.onload = function() {
 
     });
     Crafty.scene("shop", function() {
-        Crafty.e("2D,DOM,Text").attr({w: 940, h: 20, x: 0, y: 20}).css({"color": "#ffffff", "text-align": "center"}).text("You've Collected six eggs and sold them for 2.00<br>Press SPACE to Continue.")
+        Crafty.e("2D,DOM,Text").attr({w: 940, h: 20, x: 0, y: 20}).css({"color": "#ffffff", "text-align": "center"}).text("You've Collected six eggs and sold them for 10 coins<br>Press SPACE to Continue.")
         .bind("KeyDown", function(e) {
                 if(e.keyCode === Crafty.keys.SPACE) {
                    eggCount = 0;
+                   coins += 10;
                    Crafty.scene("main");
-                }
+                }        
         });
     });
     //All the directional controls for our chickens
